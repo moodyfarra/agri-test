@@ -100,26 +100,12 @@ jobs:
             --cov-fail-under=50
         continue-on-error: false
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./coverage.xml
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: false
-
       - name: Archive coverage reports
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: coverage-report
           path: htmlcov/
-
-      - name: Comment coverage on PR
-        if: github.event_name == 'pull_request'
-        uses: py-cov-action/python-coverage-comment-action@v3
-        with:
-          GITHUB_TOKEN: ${{ github.token }}
 
   # Stage 3: Docker Build
   docker-build:
@@ -273,7 +259,7 @@ jobs:
           safety check --json || true
         continue-on-error: true
 
-  # Stage 6: Deploy to GCP (only on main branch)
+  # Stage 6: Deploy to GCP (only on master branch)
   deploy:
     runs-on: ubuntu-latest
     name: Deploy to GCP
