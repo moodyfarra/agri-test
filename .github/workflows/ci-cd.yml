@@ -114,7 +114,7 @@ jobs:
           fail_ci_if_error: false
 
       - name: Archive coverage reports
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: coverage-report
@@ -417,24 +417,3 @@ jobs:
           else
             echo "### ✅ Pipeline PASSED" >> $GITHUB_STEP_SUMMARY
           fi
-
-      - name: Notify Slack (optional)
-        if: failure()
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          payload: |
-            {
-              "text": "AgriGuard CI/CD Pipeline Failed",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*AgriGuard CI/CD Pipeline Failed*\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
