@@ -57,11 +57,6 @@ jobs:
     services:
       chromadb:
         image: chromadb/chroma:latest
-        options: >-
-          --health-cmd "curl localhost:8000/health"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
         ports:
           - 8004:8000
 
