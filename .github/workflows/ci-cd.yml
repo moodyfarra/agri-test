@@ -157,8 +157,8 @@ jobs:
       - name: Build RAG Service
         uses: docker/build-push-action@v4
         with:
-          context: ./ml_models/rag
-          file: ./ml_models/rag/Dockerfile
+          context: ./rag
+          file: ./rag/Dockerfile
           push: false
           tags: agriguard-rag:${{ github.sha }}
           cache-from: type=gha
@@ -297,7 +297,7 @@ jobs:
             --push \
             -t ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/agriguard-mcsi:latest \
             -t ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/agriguard-mcsi:${{ github.sha }} \
-            ./ml_models/mcsi
+            ./rag
           
           # Build and push Yield
           docker buildx build \
