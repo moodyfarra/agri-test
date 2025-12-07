@@ -180,12 +180,6 @@ jobs:
     name: Integration Tests
     needs: docker-build
 
-    services:
-      chromadb:
-        image: chromadb/chroma:latest
-        ports:
-          - 8004:8000
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
