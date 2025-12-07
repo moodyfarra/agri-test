@@ -98,7 +98,7 @@ jobs:
             --cov-report=html \
             --cov-report=term-missing \
             --cov-fail-under=60
-        continue-on-error: false-
+        continue-on-error: false
 
       - name: Archive coverage reports
         uses: actions/upload-artifact@v4
