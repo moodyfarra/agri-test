@@ -24,7 +24,7 @@ services:
   yield:
     build:
       context: ./ml_models/yield_forecast
-      dockerfile: Dockerfile.yield
+      dockerfile: Dockerfile
     ports:
       - "8001:8001"
     environment:
