@@ -1,7 +1,7 @@
 services:
   mcsi:
     build:
-      context: ./ml-models/mcsi
+      context: ./ml_models/mcsi
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
@@ -11,7 +11,7 @@ services:
       - GCP_PROJECT_ID=agriguard-ac215
       - GOOGLE_APPLICATION_CREDENTIALS=/secrets/agriguard-service-account.json
     volumes:
-      - ./ml-models/mcsi:/app
+      - ./ml_models/mcsi:/app
       - /mnt/c/Users/artyb/.gcp/agriguard-service-account.json:/secrets/agriguard-service-account.json:ro
     networks:
       - agriguard
@@ -23,7 +23,7 @@ services:
 
   yield:
     build:
-      context: ./ml-models/yield_forecast
+      context: ./ml_models/yield_forecast
       dockerfile: Dockerfile.yield
     ports:
       - "8001:8001"
@@ -33,7 +33,7 @@ services:
       - GCP_PROJECT_ID=agriguard-ac215
       - GOOGLE_APPLICATION_CREDENTIALS=/secrets/agriguard-service-account.json
     volumes:
-      - ./ml-models/yield_forecast:/app
+      - ./ml_models/yield_forecast:/app
       - /mnt/c/Users/artyb/.gcp/agriguard-service-account.json:/secrets/agriguard-service-account.json:ro
     networks:
       - agriguard
@@ -57,7 +57,7 @@ services:
       - RAG_URL=http://rag:8003
     volumes:
       - ./api:/app/api
-      - ./ml-models:/app/ml-models
+      - ./ml_models:/app/ml-models
     command: uvicorn api.api_orchestrator:app --host 0.0.0.0 --port 8000 --reload
     depends_on:
       - mcsi
