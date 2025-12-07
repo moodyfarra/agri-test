@@ -220,7 +220,13 @@ jobs:
 
       - name: Cleanup
         if: always()
-        run: docker-compose down
+        run: |
+          if command -v docker-compose >/dev/null 2>&1; then
+            docker-compose -f docker-compose.test.yml down || true
+          else
+            echo "docker-compose not found, skipping cleanup"
+          fi
+        
 
   # Stage 5: Security Scanning
   security-scan:
